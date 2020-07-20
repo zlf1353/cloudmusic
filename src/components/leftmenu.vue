@@ -30,34 +30,40 @@
       <!--主页-->
     </div>
     <!--!!!el-container导致轮播图ul位置错位-->
-    <el-container class="main">
-      <el-main>
+    <!--!!!el-container导致两条滚动条-->
+    <div class="main">
+      <main>
+        <!--el-main 导致音乐无法播放-->
+        <!--加了el-main相当于父节点的父节点$parent.$parent,main 不影响-->
         <router-view></router-view>
-      </el-main>
-    </el-container>
+      </main>
+    </div>
     <!--播放器-->
     <div class="player">
       <audio :src="musicUrl"
              autoplay
-             controls></audio>
+             controls
+             id="music"
+             class="btmplayer"></audio>
     </div>
   </div>
-
 </template>
 
 <script>
 export default {
-  name: "menu",
+  name: "leftmenu",
   data () {
     return {
-      activepath: '',
+      activepath: 'discovery',
       // !!!
       menulist: [
         { name: "发现音乐", iconobj: "el-icon-user-solid", id: "discovery" },
-        { name: "推荐歌单", iconobj: "el-icon-user-solid", id: "2" },
-        { name: "最新音乐", iconobj: "el-icon-user-solid", id: "3" },
-        { name: "最新MV", iconobj: "el-icon-user-solid", id: "4" },
-      ]
+        { name: "推荐歌单", iconobj: "el-icon-user-solid", id: "playlists" },
+        { name: "最新音乐", iconobj: "el-icon-user-solid", id: "songs" },
+        { name: "全部MV", iconobj: "el-icon-user-solid", id: "mvs" },
+      ],
+      // 播放的音乐地址
+      musicUrl: ''
     }
   },
   methods: {
@@ -68,5 +74,13 @@ export default {
 <style scoped>
 .menuaside {
   width: 200px;
+}
+.ahome {
+  overflow-x: hidden;
+  overflow-y: hidden;
+}
+.btmplayer {
+  height: 60px;
+  border: 0;
 }
 </style>>

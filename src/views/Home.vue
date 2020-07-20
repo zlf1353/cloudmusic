@@ -7,9 +7,9 @@
 
 <script>
 //引入组件
-//头部
+//头部a
 import top from '../components/top'
-import leftmenu from '../components/menu'
+import leftmenu from '../components/leftmenu'
 export default {
   name: "Home",
   //组件需要注册
@@ -20,5 +20,5 @@ export default {
 }
 </script>
 
-<style >
-</style>
+<style scoped>
+</style>>

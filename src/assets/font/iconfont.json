@@ -1,0 +1,114 @@
+{
+  "id": "",
+  "name": "",
+  "font_family": "iconfont",
+  "css_prefix_text": "icon-",
+  "description": "",
+  "glyphs": [
+    {
+      "icon_id": "355547",
+      "name": "full-screen",
+      "font_class": "fullscreen",
+      "unicode": "e650",
+      "unicode_decimal": 58960
+    },
+    {
+      "icon_id": "495787",
+      "name": "home",
+      "font_class": "home",
+      "unicode": "e64e",
+      "unicode_decimal": 58958
+    },
+    {
+      "icon_id": "929688",
+      "name": "play",
+      "font_class": "play",
+      "unicode": "e7c3",
+      "unicode_decimal": 59331
+    },
+    {
+      "icon_id": "15727012",
+      "name": "icon_vip",
+      "font_class": "icon_vip",
+      "unicode": "e666",
+      "unicode_decimal": 58982
+    },
+    {
+      "icon_id": "15727013",
+      "name": "KHCFDC_关注",
+      "font_class": "KHCFDC_guanzhu",
+      "unicode": "e667",
+      "unicode_decimal": 58983
+    },
+    {
+      "icon_id": "15727014",
+      "name": "QQ-实心",
+      "font_class": "QQ-shixin",
+      "unicode": "e668",
+      "unicode_decimal": 58984
+    },
+    {
+      "icon_id": "15727015",
+      "name": "V认证",
+      "font_class": "Vrenzheng",
+      "unicode": "e669",
+      "unicode_decimal": 58985
+    },
+    {
+      "icon_id": "15727016",
+      "name": "user用户",
+      "font_class": "useryonghu",
+      "unicode": "e66a",
+      "unicode_decimal": 58986
+    },
+    {
+      "icon_id": "15727017",
+      "name": "v认证管理",
+      "font_class": "vrenzhengguanli",
+      "unicode": "e66b",
+      "unicode_decimal": 58987
+    },
+    {
+      "icon_id": "15727018",
+      "name": "VS对比",
+      "font_class": "VSduibi",
+      "unicode": "e66c",
+      "unicode_decimal": 58988
+    },
+    {
+      "icon_id": "15727019",
+      "name": "wechat-微信-实心",
+      "font_class": "wechat-weixin-shixin",
+      "unicode": "e66d",
+      "unicode_decimal": 58989
+    },
+    {
+      "icon_id": "15727020",
+      "name": "Wi-Fi信号",
+      "font_class": "Wi-Fixinhao",
+      "unicode": "e66e",
+      "unicode_decimal": 58990
+    },
+    {
+      "icon_id": "15727021",
+      "name": "weibo-sina",
+      "font_class": "weibo-sina",
+      "unicode": "e66f",
+      "unicode_decimal": 58991
+    },
+    {
+      "icon_id": "15727022",
+      "name": "windows",
+      "font_class": "windows",
+      "unicode": "e670",
+      "unicode_decimal": 58992
+    },
+    {
+      "icon_id": "15727023",
+      "name": "_提示",
+      "font_class": "_tishi",
+      "unicode": "e671",
+      "unicode_decimal": 58993
+    }
+  ]
+}

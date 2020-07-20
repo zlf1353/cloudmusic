@@ -1,0 +1,78 @@
+@font-face {
+  font-family: 'iconfont';
+  src: url('./iconfont.eot');
+  src: url('./iconfont.eot') format('embedded-opentype'),
+      url('./iconfont.woff2') format('woff2'),
+      url('./iconfont.woff') format('woff'),
+      url('./iconfont.ttf') format('truetype'),
+      url('./iconfont.svg#iconfont') format('svg');
+}
+
+.iconfont {
+  font-family: "iconfont" !important;
+  font-size: 16px;
+  font-style: normal;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-fullscreen:before {
+  content: "\e650";
+}
+
+.icon-home:before {
+  content: "\e64e";
+}
+
+.icon-play:before {
+  content: "\e7c3";
+}
+
+.icon-icon_vip:before {
+  content: "\e666";
+}
+
+.icon-KHCFDC_guanzhu:before {
+  content: "\e667";
+}
+
+.icon-QQ-shixin:before {
+  content: "\e668";
+}
+
+.icon-Vrenzheng:before {
+  content: "\e669";
+}
+
+.icon-useryonghu:before {
+  content: "\e66a";
+}
+
+.icon-vrenzhengguanli:before {
+  content: "\e66b";
+}
+
+.icon-VSduibi:before {
+  content: "\e66c";
+}
+
+.icon-wechat-weixin-shixin:before {
+  content: "\e66d";
+}
+
+.icon-Wi-Fixinhao:before {
+  content: "\e66e";
+}
+
+.icon-weibo-sina:before {
+  content: "\e66f";
+}
+
+.icon-windows:before {
+  content: "\e670";
+}
+
+.icon-_tishi:before {
+  content: "\e671";
+}
+

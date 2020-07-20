@@ -5,9 +5,8 @@ html {
   padding: 0;
   font-weight: 400;
   font-family: Helvetica Neue, Helvetica, PingFang SC, Hiragino Sans GB,
- Microsoft YaHei, '\5FAE\8F6F\96C5\9ED1', Arial, sans-serif;
+  Microsoft YaHei, '\5FAE\8F6F\96C5\9ED1', Arial, sans-serif;
 }
-
 * {
   /*!!!全局属性，避免超出边界*/
   box-sizing: border-box;
@@ -172,6 +171,7 @@ ol {
 
 .discovery-container .recommend .items {
   display: flex;
+  /*必要时换行*/
   flex-wrap: wrap;
 }
 
@@ -189,6 +189,7 @@ ol {
 }
 
 .discovery-container .recommend .items .item .desc-wrap {
+  /*一个absolute一个relative*/
   position: absolute;
   width: 100%;
   top: 0;
@@ -203,7 +204,7 @@ ol {
   display: -webkit-box;
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 2;
-  top: -50px;
+  top:-50px;
 }
 
 .discovery-container .recommend .items .item .desc-wrap span {
@@ -211,6 +212,7 @@ ol {
 }
 
 .discovery-container .recommend .items .item:hover .desc-wrap {
+  /*鼠标移动到目标上，文字下滑*/
   top: 0;
 }
 
@@ -336,7 +338,7 @@ ol {
 }
 
 .discovery-container .mvs .items .item {
-  width: 250px;
+  width: 230px;
   cursor: pointer;
 }
 
@@ -892,6 +894,7 @@ ol {
 
 .playlists-container .top-card .icon-wrap {
   margin-right: 20px;
+  /*z-index 属性设置元素的堆叠顺序。拥有更高堆叠顺序的元素总是会处于堆叠顺序较低的元素的前面。*/
   z-index: 1;
 }
 
@@ -1345,7 +1348,7 @@ ol {
   border-radius: 50%;
 }
 
-.top-container .left-box .icon-wrapper .iconfont.icon-full-screen {
+.top-container .left-box .icon-wrapper .iconfont.icon-fullscreen {
   background-color: #84bb58;
   border-radius: 50%;
 }
