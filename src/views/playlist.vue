@@ -59,7 +59,7 @@
               <td>{{ index + 1 }}</td>
               <td>
                 <div class="img-wrap"
-                     @click="playMusic(item.id)">
+                     @click="playMusic(item.id,index)">
                   <img :src="item.al.picUrl+'?param=130y130'"
                        alt="" />
                   <span class="iconfont icon-play"></span>
@@ -165,7 +165,6 @@
 
 <script>
 import axios from 'axios'
-import { playmusic } from '../network/request'
 export default {
   data () {
     return {
@@ -180,7 +179,9 @@ export default {
       //最近评论
       comments: [],
       pageNum: 1,
-      pageSize: 30
+      pageSize: 30,
+      //播放列表的音乐歌曲id
+      tobeplayedmusic: []
     }
   },
   methods: {
@@ -190,8 +191,8 @@ export default {
         method: 'get',
         params: { id: this.$route.query.id }
       }).then(res => {
-        //console.log(res)
         this.playlist = res.data.playlist
+        //console.log(this.playlist)
       })
     },
     gethotcomments () {
@@ -215,16 +216,33 @@ export default {
       this.pageNum = val
       this.gethotcomments()
     },
-    playMusic (id) {
-      //console.log(res)
-      const res = playmusic(id)
-      console.log(res)
-      //this.$parent.musicUrl = res.data.data[0].url
+    // 播放音乐
+    async playMusic (id, index) {
+      axios({
+        url: 'http://localhost:3000/song/url',
+        method: 'get',
+        params: {
+          id: id,
+          cookie: document.cookie
+        }
+      }).then(res => {
+        // 播放的音乐地址
+        // 父组件传参
+        this.tobeplayedmusic = []
+        for (let i = index + 1; i < this.playlist.tracks.length; i++) {
+          this.tobeplayedmusic.push(this.playlist.tracks[i].id)
+        }
+        if (!res.data.data[0].url) {
+          return this.$message.error('没有权限')
+        }
+        this.$parent.musicUrl = res.data.data[0].url
+        this.$parent.tobeplayedmusic = this.tobeplayedmusic
+      })
     }
+
   },
   created () {
     //console.log(this.$route.query.id)
-    console.log('1d')
     this.getplaylist()
     this.gethotcomments()
   }

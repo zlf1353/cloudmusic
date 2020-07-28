@@ -172,6 +172,10 @@ export default {
     handleCurrentChange (val) {
       this.pageNum = val
       this.getmvlist()
+    },
+    // 跳转mv页面
+    toMv (id) {
+      this.$router.push('/mv?id=' + id)
     }
   },
   created () {

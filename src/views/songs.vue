@@ -86,11 +86,17 @@ export default {
       axios({
         url: 'http://localhost:3000/song/url',
         method: 'get',
-        params: { id: id }
+        params: {
+          id: id,
+          cookie: document.cookie
+        }
       }).then(res => {
         // 播放的音乐地址
         // 父组件传参
         //不是el-main 只要一个$parent
+        if (!res.data.data[0].url) {
+          return this.$message.error('没有权限')
+        }
         this.$parent.musicUrl = res.data.data[0].url
       })
     }
@@ -102,6 +108,8 @@ export default {
   },
   created () {
     this.getsonglist()
+    var reg = new RegExp("(^| )" + name + "=([^;]*)(;|$)");
+    console.log(document.cookie.match(reg))
   }
 }
 </script>

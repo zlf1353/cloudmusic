@@ -7,7 +7,15 @@
         <!--！！！.icon-fullscreen才是引入的名字-->
       </div>
     </div>
-    <div class="right-box">
+    <div class="right-box ">
+      <el-button size="small"
+                 class="myrightbox"
+                 v-if="status=='登录'"
+                 @click="login()">{{status}}</el-button>
+      <el-button size="small"
+                 class="myrightbox"
+                 v-else
+                 @click="topersonalinfo()">{{status}}</el-button>
       <el-input placeholder="搜索"
                 prefix-icon="el-icon-search"
                 v-model="searchvalue"
@@ -29,18 +37,42 @@ export default {
       searchvalue: ""
     }
   },
+  watch: {
+    status () {
+      if (status == "个人中心")
+        this.$forceUpdate()
+    }
+  },
   methods: {
     toResult () {
       // 如果没有填入搜索值
       if (this.searchvalue == "") {
-        this.$message.warning('请输入要搜索的值')
+        return this.$message.warning('请输入要搜索的值')
       }
       //！！！ 页面跳转，携带参数 携带在页面路由中
       this.$router.push('/result?q=' + this.searchvalue)
+    },
+    login () {
+      this.$router.push('/login')
+    },
+    topersonalinfo () {
+      this.$router.push('/personalinfo')
+    }
+  },
+  computed: {
+    status () {
+      if (document.cookie) {
+        return '个人中心'
+      }
+      //一定要有返回值
+      return '登录'
     }
   }
 }
 </script>
 
 <style scoped>
+.myrightbox {
+  margin-right: 15px;
+}
 </style>>

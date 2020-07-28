@@ -11,6 +11,9 @@ import mvs from '../views/mvs'
 import result from '../views/result'
 import mv from '../views/mv'
 import playlist from '../views/playlist'
+import login from '../views/login'
+import personalinfo from '../views/personalinfo'
+
 const router = new VueRouter({
   routes: [
     {
@@ -54,6 +57,14 @@ const router = new VueRouter({
           path: '/playlist',
           name: 'playlist',
           component: playlist
+        }, {
+          path: '/login',
+          name: 'login',
+          component: login
+        }, {
+          path: '/personalinfo',
+          name: 'personalinfo',
+          component: personalinfo
         }
       ]
     }, {

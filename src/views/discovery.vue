@@ -6,7 +6,8 @@
                  height="200px">
       <el-carousel-item v-for="(item,index) in banners"
                         :key="index">
-        <img :src="item.imageUrl" />
+        <img :src="item.imageUrl"
+             @click="toMvorPlaylist(item)" />
       </el-carousel-item>
     </el-carousel>
     <!-- 推荐歌单 -->
@@ -43,7 +44,7 @@
             <img :src="item.picUrl+'?param=130y130'"
                  alt="" />
             <span class="iconfont icon-play"
-                  @click="playmucic(item.id)"></span>
+                  @click="playMusic(item.id)"></span>
           </div>
           <div class="song-wrap">
             <div class="song-name">{{ item.name }}</div>
@@ -82,7 +83,6 @@
 </template>
 
 <script>
-import axios from 'axios'
 export default {
   name: "discovery",
   data () {
@@ -98,62 +98,88 @@ export default {
     }
   },
   methods: {
-    playmucic (id) {
-      axios({
-        url: 'http://localhost:3000/song/url',
-        method: 'get',
-        params: { id: id }
-      }).then(res => {
-        // 播放的音乐地址
-        // 父组件传参
-        this.$parent.musicUrl = res.data.data[0].url
-        //console.log(this.$parent.musicUrl)
-      })
+    // 轮播图点击跳转
+    toMvorPlaylist (item) {
+      //console.log(item.targetType)
+      //mv
+      console.log(item.targetType)
+      if (item.targetType == '1004') {
+        this.tomv(item.targetId)
+      } else if (item.targetType == '10') {
+        this.$message.warning("暂未开放")
+      } else if (item.targetType == '1') {
+        this.playMusic(item.targetId)
+      } else if (item.targetType == '3000' || item.targetType == '0') {
+        this.$message.warning("暂未开放")
+      }
     },
+    // 播放音乐
+    async playMusic (id) {
+      //{data:res}是解构，把返回的数据的data作为数据res
+      const res = await this.$http.get('/song/url', {
+        params: {
+          cookie: document.cookie,
+          id: id,
+        }
+      }).catch(() => {
+        this.$message.error('没有权限')
+      })
+      // 播放的音乐地址
+      // 父组件传参
+      if (!res.data.data[0].url) {
+        this.$message.error('没有权限')
+      }
+      this.$parent.musicUrl = res.data.data[0].url
+      //console.log(this.$parent.musicUrl)
+    },
+    // 跳转歌单页面
     toplaylist (id) {
       this.$router.push('/playlist?id=' + id)
     },
+    // 跳转mv页面
     tomv (id) {
       this.$router.push('/mv?id=' + id)
+    },
+    // 轮播图数据
+    async getbanner () {
+      const res = await this.$http.get('/banner', {
+        params: {}
+      })
+      console.log(res)
+      this.banners = res.data.banners
+      if (!res) return this.$message.error("错误")
+    },
+    //推荐歌单
+    async getpersonalized () {
+      const res = await this.$http.get('/personalized?limit=12', {
+        params: {}
+      })
+      this.playList = res.data.result
+    },
+    //最新音乐
+    async getnewsong () {
+      const res = await this.$http.get('/personalized/newsong', {
+        params: {
+          cookie: document.cookie
+        }
+      })
+      this.newSongs = res.data.result
+    },
+    //推荐MV
+    async getnewmv () {
+      const res = await this.$http.get('/personalized/mv', {
+        params: {
+          cookie: document.cookie
+        }
+      })
+      this.mvs = res.data.result
     }
   },
   created () {
-    // 轮播图数据
-    axios({
-      url: 'http://localhost:3000/banner',
-      method: 'get',
-      params: {}
-    }).then(res => {
-      //console.log(res)
-      this.banners = res.data.banners
-    })
-    //推荐歌单
-    axios({
-      url: 'http://localhost:3000/personalized?limit=12',
-      method: 'get',
-      params: {}
-    }).then(res => {
-      this.playList = res.data.result
-      //console.log(this.playList)
-    })
-    //最新音乐
-    axios({
-      url: 'http://localhost:3000/personalized/newsong',
-      method: 'get',
-      params: {}
-    }).then(res => {
-      this.newSongs = res.data.result
-      //console.log(this.newSongs)
-    })
-    //推荐MV
-    axios({
-      url: 'http://localhost:3000/personalized/mv',
-      method: 'get',
-      params: {}
-    }).then(res => {
-      //console.log(res)
-      this.mvs = res.data.result
-    })
+    this.getbanner()
+    this.getpersonalized()
+    this.getnewsong()
+    this.getnewmv()
   }
 }
 </script>

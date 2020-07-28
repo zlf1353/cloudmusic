@@ -104,12 +104,12 @@
         <div class="items">
           <div class="item"
                v-for="(item, index) in simiMvs"
-               :key="index"
-               @click="tomv(item.id)">
+               :key="index">
             <div class="img-wrap">
               <img :src="item.cover+'?param=250y150'"
                    alt="" />
-              <span class="iconfont icon-play"></span>
+              <span class="iconfont icon-play"
+                    @click="toMv(item.id)"></span>
               <div class="num-wrap">
                 <div class="iconfont icon-play"></div>
                 <div class="num">{{ item.playCount | playcountFormat }}</div>
@@ -179,7 +179,7 @@ export default {
           offset: (this.pageNum - 1) * this.pageSize
         }
       }).then(res => {
-        console.log(res)
+        //console.log(res)
         this.hotComments = res.data.hotComments
         this.comments = res.data.comments
         this.total = res.data.total
@@ -200,6 +200,16 @@ export default {
     handleCurrentChange (val) {
       this.pageNum = val
       this.gethotcomments()
+    },
+    // 跳转mv页面
+    toMv (id) {
+      this.$router.push('/mv?id=' + id)
+      this.getmvlist()
+      this.gethotcomments()
+      this.getsimv()
+      this.getmvdetetail()
+      this.$pubSub.publish('pauseAudio')
+      this.pageNum = 1
     }
   },
   //!!! created被包括到methods里
@@ -208,6 +218,7 @@ export default {
     this.gethotcomments()
     this.getsimv()
     this.getmvdetetail()
+    this.$pubSub.publish('pauseAudio')
   }
 }
 

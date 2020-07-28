@@ -50,12 +50,12 @@
         <div class="items">
           <div class="item"
                v-for="(item, index) in playlists"
-               :key="index"
-               @click="toPlaylist(item.id)">
-            <div class="img-wrap">
+               :key="index">
+            <div class="img-wrap"
+                 @click="tothePlaylist(item.id)">
               <div class="num-wrap">
                 播放量:
-                <span class="num">{{ item.playCount | playNumFormat }}</span>
+                <span class="num">{{ item.playCount | playcountFormat }}</span>
               </div>
               <img :src="item.coverImgUrl+'?param=200y200'"
                    alt="" />
@@ -71,15 +71,15 @@
         <div class="items mv">
           <div class="item"
                v-for="(item, index) in mvs"
-               :key="index"
-               @click="toMv(item.id)">
-            <div class="img-wrap">
+               :key="index">
+            <div class="img-wrap"
+                 @click="toMv(item.id)">
               <img :src="item.cover+'?param=250y150'"
                    alt="" />
               <span class="iconfont icon-play"></span>
               <div class="num-wrap">
                 <div class="iconfont icon-play"></div>
-                <div class="num">{{ item.playCount }}</div>
+                <div class="num">{{ item.playCount | playcountFormat}}</div>
               </div>
               <span class="time">{{ item.duration}}</span>
             </div>
@@ -118,7 +118,9 @@ export default {
       pageNum: 1,
       pageSize: 30,
       // 搜索类型
-      type: 1
+      type: 1,
+      playlists: [],
+      mvs: []
     }
   },
   watch: {
@@ -167,15 +169,6 @@ export default {
         }
         //console.log(this.mvs)
         this.count = res.data.result.songCount
-        for (let i = 0; i < this.songs.length; i++) {
-          let duration = this.songs[i].duration
-          let min = parseInt(duration / 1000 / 60) + ''
-          //padStart 不足两位补0
-          min = min.padStart(2, '0')
-          let sec = parseInt(duration / 1000 % 60) + ''
-          sec = sec.padStart(2, '0')
-          this.songs[i].duration = min + ":" + sec
-        }
       })
     },
     playmucic (id) {
@@ -184,9 +177,18 @@ export default {
         method: 'get',
         params: { id: id }
       }).then(res => {
-        console.log(id)
+        //console.log(id)
         this.$parent.musicUrl = res.data.data[0].url
       })
+    },
+    // 跳转歌单页面
+    //!!! 不能叫toPlaylist
+    tothePlaylist (id) {
+      this.$router.push('/playlist?id=' + id)
+    },
+    // 跳转mv页面
+    toMv (id) {
+      this.$router.push('/mv?id=' + id)
     }
   },
   created () {

@@ -32,11 +32,9 @@
     <!--!!!el-container导致轮播图ul位置错位-->
     <!--!!!el-container导致两条滚动条-->
     <div class="main">
-      <main>
-        <!--el-main 导致音乐无法播放-->
-        <!--加了el-main相当于父节点的父节点$parent.$parent,main 不影响-->
-        <router-view></router-view>
-      </main>
+      <!--el-main 导致音乐无法播放-->
+      <!--加了el-main相当于父节点的父节点$parent.$parent,main 不影响-->
+      <router-view></router-view>
     </div>
     <!--播放器-->
     <div class="player">
@@ -44,12 +42,16 @@
              autoplay
              controls
              id="music"
-             class="btmplayer"></audio>
+             class="btmplayer"
+             @ended="nextmusic()"></audio>
+      <!--@ended监听播放完毕-->
     </div>
   </div>
 </template>
 
 <script>
+// eslint-disable-next-line no-unused-vars
+import axios from 'axios'
 export default {
   name: "leftmenu",
   data () {
@@ -63,10 +65,34 @@ export default {
         { name: "全部MV", iconobj: "el-icon-user-solid", id: "mvs" },
       ],
       // 播放的音乐地址
-      musicUrl: ''
+      musicUrl: '',
+      //播放列表的音乐歌曲id
+      tobeplayedmusic: [],
+      //待播的index
+      index: 0
     }
   },
   methods: {
+    async nextmusic () {
+      //console.log(this.tobeplayedmusic[this.index])
+      //歌单播放，当播放结束的时候
+      const { data: res } = await this.$http.get('/song/url', {
+        params: {
+          cookie: document.cookie,
+          id: this.tobeplayedmusic[this.index]
+        }
+      })
+      this.musicUrl = res.data.data[0].url
+      this.index += 1
+    }
+  },
+  mounted () {
+    //订阅消息
+    // eslint-disable-next-line no-unused-vars
+    this.$pubSub.subscribe('pauseAudio', msg => {
+      var audio = document.getElementById('music')
+      audio.pause()
+    })
   }
 }
 </script>

@@ -4,15 +4,23 @@ import router from './router'
 import store from './store'
 import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
-
+import PubSub from 'pubsub-js'
 import './assets/index.css'
 //引入阿里矢量图库
 import './assets/font/iconfont.css'
+
+import mymethod from './network/request';
+Vue.prototype.$mymethod = mymethod;
+
 Vue.use(ElementUI);
 Vue.config.productionTip = false
 
-import axios from 'axios'
+Vue.prototype.$pubSub = PubSub
 
+import axios from 'axios'
+axios.defaults.baseURL = 'http://musicapi.leanapp.cn/'
+// 每个组件都可以使用$http
+Vue.prototype.$http = axios
 
 // 注册全局过滤器 名字 函数（需要处理的数据）
 Vue.filter('dateFormat', function (originval) {
